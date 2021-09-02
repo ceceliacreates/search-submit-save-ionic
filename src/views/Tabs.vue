@@ -4,17 +4,17 @@
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="search" href="/tabs/search">
-          <ion-icon :icon="triangle" />
+          <ion-icon :icon="search" />
           <ion-label>Search</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="submit" href="/tabs/submit">
-          <ion-icon :icon="ellipse" />
+          <ion-icon :icon="cloudUpload" />
           <ion-label>Submit</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="save" href="/tabs/save">
-          <ion-icon :icon="square" />
+          <ion-icon :icon="bookmark" />
           <ion-label>Save</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
@@ -32,7 +32,7 @@ import {
   IonPage,
   IonRouterOutlet
 } from "@ionic/vue";
-import { ellipse, square, triangle } from "ionicons/icons";
+import { search, cloudUpload, bookmark } from "ionicons/icons";
 
 export default {
   name: "Tabs",
@@ -47,9 +47,9 @@ export default {
   },
   setup() {
     return {
-      ellipse,
-      square,
-      triangle
+      search,
+      cloudUpload,
+      bookmark
     };
   }
 };

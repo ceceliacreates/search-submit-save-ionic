@@ -12,7 +12,7 @@
         </ion-toolbar>
       </ion-header>
 
-      <ExploreContainer name="Search page" />
+      <SearchContainer />
     </ion-content>
   </ion-page>
 </template>
@@ -25,12 +25,12 @@ import {
   IonTitle,
   IonContent
 } from "@ionic/vue";
-import ExploreContainer from "@/components/ExploreContainer.vue";
+import SearchContainer from "@/components/SearchContainer.vue";
 
 export default {
   name: "Search",
   components: {
-    ExploreContainer,
+    SearchContainer,
     IonHeader,
     IonToolbar,
     IonTitle,

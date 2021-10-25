@@ -1,5 +1,6 @@
 {
   "pluginsFile": "tests/e2e/plugins/index.js",
   "experimentalStudio": true,
-  "baseUrl": "http://localhost:8100"
+  "baseUrl": "http://localhost:8100",
+  "retries": 2
 }

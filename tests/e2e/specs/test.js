@@ -5,11 +5,11 @@ describe("Tab navigation", () => {
     cy.visit("/");
   });
   it("Redirects to the Search tab by default", () => {
-    cy.contains("ion-content", "Search page");
+    cy.contains("ion-content", "Filter results by search term.");
   });
   it("Visits the Search tab", () => {
     cy.get("#tab-button-search").click();
-    cy.contains("ion-content", "Search page");
+    cy.contains("ion-content", "Filter results by search term.");
     cy.contains("ion-title", "Search");
   });
   it("Visits the Submit tab", () => {
@@ -23,4 +23,13 @@ describe("Tab navigation", () => {
     cy.contains("ion-content", "Save page");
     cy.contains("ion-title", "Save");
   });
+});
+
+describe("Search page", () => {
+  beforeEach("visits the Search tab", () => {
+    cy.visit("/");
+  });
+  it("returns matching result when found", () => {});
+  it("returns error when no term entered", () => {});
+  it("returns no results when no matches found", () => {});
 });

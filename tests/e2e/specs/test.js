@@ -1,7 +1,8 @@
 // https://docs.cypress.io/api/introduction/api.html
 
 describe("Tab navigation", () => {
-  beforeEach("it visits the app root url", () => {
+  beforeEach("it resets viewport and visits the app root url", () => {
+    cy.viewport("iphone-x");
     cy.visit("/");
   });
   it("Redirects to the Search tab by default", () => {
@@ -26,8 +27,9 @@ describe("Tab navigation", () => {
 });
 
 describe("Search page", () => {
-  beforeEach("visits the Search tab", () => {
-    cy.visit("/");
+  beforeEach("it resets viewport and visits the Search tab", () => {
+    cy.viewport("iphone-x");
+    cy.visit("/search");
   });
   it("returns matching result when found", () => {});
   it("returns error when no term entered", () => {});

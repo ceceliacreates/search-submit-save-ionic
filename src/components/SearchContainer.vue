@@ -15,12 +15,9 @@
         <ion-label>
           {{ result.name }}
         </ion-label>
-        <button>
-          <ion-icon
-            :icon="result.onChange ? star : starOutline"
-            @click="save(result)"
-          />
-        </button>
+        <ion-button fill="clear" @click="save(result)">
+          <ion-icon :icon="result.onChange ? star : starOutline" />
+        </ion-button>
       </ion-item>
     </ion-list>
     <div class="ion-padding">
@@ -93,7 +90,6 @@ export default defineComponent({
         this.savedResults.push(result.name);
       }
       if (!result.onChange && this.savedResults.includes(result.name)) {
-        console.log(result.name);
         this.savedResults = this.savedResults.filter((savedResult) => {
           return savedResult != result.name;
         });

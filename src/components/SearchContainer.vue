@@ -11,7 +11,7 @@
       </ion-item>
     </div>
     <ion-list>
-      <ion-item v-for="result in results" :key="result.name">
+      <ion-item v-for="result in results" :key="result.id">
         <ion-label>
           {{ result.name }}
         </ion-label>
@@ -45,7 +45,10 @@ import {
   IonLabel,
   IonList,
   IonText,
-  IonIcon
+  IonIcon,
+  IonCard,
+  IonCardHeader,
+  IonCardContent
 } from "@ionic/vue";
 import { search, starOutline, star } from "ionicons/icons";
 import { defineComponent, ref } from "vue";
@@ -68,7 +71,10 @@ export default defineComponent({
     IonText,
     IonLabel,
     IonButton,
-    IonIcon
+    IonIcon,
+    IonCard,
+    IonCardHeader,
+    IonCardContent
   },
   setup() {
     const store = useStore();
@@ -84,8 +90,7 @@ export default defineComponent({
     return {
       searchInput: "",
       errorMessage: "",
-      results: [] as Item[],
-      savedResults: [] as SavedResult[]
+      results: [] as Item[]
     };
   },
   methods: {

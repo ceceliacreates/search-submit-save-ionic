@@ -15,16 +15,37 @@
         <ion-label>
           {{ result.name }}
         </ion-label>
-        <ion-icon :icon="star" slot="end" />
+        <button>
+          <ion-icon
+            :icon="result.onChange ? star : starOutline"
+            @click="save(result)"
+          />
+        </button>
       </ion-item>
     </ion-list>
+    <div class="ion-padding">
+      <p>Saved Results</p>
+      <ion-list>
+        <ion-item v-for="savedResult in savedResults" :key="savedResult">
+          <ion-text>{{ savedResult }}</ion-text>
+        </ion-item>
+      </ion-list>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { IonInput, IonItem, IonList, IonText } from "@ionic/vue";
-import { search, star } from "ionicons/icons";
-import { defineComponent } from "vue";
+import {
+  IonButton,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonText,
+  IonIcon
+} from "@ionic/vue";
+import { search, starOutline, star } from "ionicons/icons";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "SearchContainer",
@@ -32,12 +53,17 @@ export default defineComponent({
     IonInput,
     IonItem,
     IonList,
-    IonText
+    IonText,
+    IonLabel,
+    IonButton,
+    IonIcon
   },
   setup() {
     return {
       search,
-      star
+      starOutline,
+      star,
+      onChange: ref(false)
     };
   },
   data() {
@@ -45,7 +71,8 @@ export default defineComponent({
       searchInput: "",
       errorMessage: "",
       items: [{ name: "result1" }, { name: "result2" }, { name: "result3" }],
-      results: [{ name: "result1" }, { name: "result2" }, { name: "result3" }]
+      results: [] as { name: string }[],
+      savedResults: [] as string[]
     };
   },
   methods: {
@@ -58,6 +85,18 @@ export default defineComponent({
         this.results = filteredResults;
       } else {
         this.errorMessage = "Please enter search term";
+      }
+    },
+    save(result: { onChange: boolean; name: string }) {
+      result.onChange = !result.onChange;
+      if (result.onChange && !this.savedResults.includes(result.name)) {
+        this.savedResults.push(result.name);
+      }
+      if (!result.onChange && this.savedResults.includes(result.name)) {
+        console.log(result.name);
+        this.savedResults = this.savedResults.filter((savedResult) => {
+          return savedResult != result.name;
+        });
       }
     }
   }

@@ -21,10 +21,16 @@
       </ion-item>
     </ion-list>
     <div class="ion-padding">
-      <p>Saved Results</p>
+      <p v-if="this.store.state.savedResults.length > 0">Saved Results</p>
       <ion-list>
-        <ion-card v-for="savedResult in savedResults" :key="savedResult">
-          <ion-card-header>{{ savedResult }}</ion-card-header>
+        <ion-card
+          v-for="savedResult in this.store.state.savedResults"
+          :key="savedResult.id"
+        >
+          <ion-card-header>{{ savedResult.name }}</ion-card-header>
+          <ion-card-content v-if="savedResult.description">
+            {{ savedResult.description }}</ion-card-content
+          >
         </ion-card>
       </ion-list>
     </div>
@@ -43,7 +49,7 @@ import {
 } from "@ionic/vue";
 import { search, starOutline, star } from "ionicons/icons";
 import { defineComponent, ref } from "vue";
-import { useStore, Item } from "../store";
+import { useStore, Item, MUTATIONS } from "../store";
 
 export interface SavedResult {
   onChange: boolean;
@@ -96,18 +102,26 @@ export default defineComponent({
     },
     save(result: SavedResult) {
       result.onChange = !result.onChange;
-      const matchingResults = this.savedResults.filter((savedResult) => {
-        return savedResult.id === result.id;
-      });
+
+      const statelessResult = {
+        id: result.id,
+        name: result.name,
+        description: result.description ? result.description : null,
+        url: result.url ? result.url : null
+      };
+
+      const matchingResults = this.store.state.savedResults.filter(
+        (savedResult) => {
+          return savedResult.id === statelessResult.id;
+        }
+      );
 
       if (result.onChange && matchingResults.length === 0) {
-        this.savedResults.push(result);
+        this.store.commit(MUTATIONS.ADD_SAVED_RESULT, statelessResult);
       }
 
       if (!result.onChange && matchingResults.length > 0) {
-        this.savedResults = this.savedResults.filter((savedResult) => {
-          return savedResult.id != result.id;
-        });
+        this.store.commit(MUTATIONS.DEL_SAVED_RESULT, statelessResult);
       }
     }
   }

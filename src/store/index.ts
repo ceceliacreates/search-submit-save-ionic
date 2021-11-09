@@ -21,27 +21,43 @@ export interface State {
 
 export const key: InjectionKey<Store<State>> = Symbol();
 
-export const store = createStore<State>({
-  state: {
-    items: [
-      {
-        name: "Vue documentation",
-        description: "https://v3.vuejs.org/guide/introduction.html",
-        id: 0
-      },
-      {
-        name: "TypeScript documentation",
-        description: "https://www.typescriptlang.org",
-        id: 1
-      },
-      {
-        name: "Vuex documentation",
-        description: "https://next.vuex.vuejs.org",
-        id: 2
-      }
-    ],
-    savedResults: []
+const state: State = {
+  items: [
+    {
+      name: "Vue documentation",
+      description: "https://v3.vuejs.org/guide/introduction.html",
+      id: 0
+    },
+    {
+      name: "TypeScript documentation",
+      description: "https://www.typescriptlang.org",
+      id: 1
+    },
+    {
+      name: "Vuex documentation",
+      description: "https://next.vuex.vuejs.org",
+      id: 2
+    }
+  ],
+  savedResults: []
+};
+
+export const enum MUTATIONS {
+  ADD_SAVED_RESULT = "ADD_SAVED_RESULT",
+  DEL_SAVED_RESULT = "DEL_SAVED_RESULT"
+}
+const mutations: MutationTree<State> = {
+  [MUTATIONS.ADD_SAVED_RESULT](state, newSavedResult: Item) {
+    state.savedResults.push({ ...newSavedResult });
+  },
+  [MUTATIONS.DEL_SAVED_RESULT](state, savedResult: Item) {
+    state.savedResults.splice(state.savedResults.indexOf(savedResult), 1);
   }
+};
+
+export const store = createStore<State>({
+  state,
+  mutations
 });
 
 // our own useStore function for types

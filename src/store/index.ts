@@ -25,16 +25,20 @@ export const store = createStore<State>({
   state: {
     items: [
       {
-        name: "Learn Vue",
+        name: "Vue documentation",
         description: "https://v3.vuejs.org/guide/introduction.html",
         id: 0
       },
       {
-        name: "Learn TypeScript",
+        name: "TypeScript documentation",
         description: "https://www.typescriptlang.org",
         id: 1
       },
-      { name: "Learn Vuex", description: "https://next.vuex.vuejs.org", id: 2 }
+      {
+        name: "Vuex documentation",
+        description: "https://next.vuex.vuejs.org",
+        id: 2
+      }
     ],
     savedResults: []
   }

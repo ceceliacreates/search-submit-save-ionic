@@ -23,17 +23,8 @@
     <div class="ion-padding">
       <p>Saved Results</p>
       <ion-list>
-        <ion-item v-for="savedResult in savedResults" :key="savedResult">
-          <ion-text>{{ savedResult }}</ion-text>
-        </ion-item>
-      </ion-list>
-    </div>
-    <div class="ion-padding">
-      <p>Store Check</p>
-      <ion-list>
-        <ion-card v-for="item in store.state.items" :key="item.id">
-          <ion-card-header>{{ item.name }}</ion-card-header>
-          <ion-card-content> {{ item.description }}</ion-card-content>
+        <ion-card v-for="savedResult in savedResults" :key="savedResult">
+          <ion-card-header>{{ savedResult }}</ion-card-header>
         </ion-card>
       </ion-list>
     </div>
@@ -52,7 +43,15 @@ import {
 } from "@ionic/vue";
 import { search, starOutline, star } from "ionicons/icons";
 import { defineComponent, ref } from "vue";
-import { useStore } from "../store";
+import { useStore, Item } from "../store";
+
+export interface SavedResult {
+  onChange: boolean;
+  name: string;
+  id: number;
+  description?: string;
+  url?: URL;
+}
 
 export default defineComponent({
   name: "SearchContainer",
@@ -80,15 +79,15 @@ export default defineComponent({
       searchInput: "",
       errorMessage: "",
       items: [{ name: "result1" }, { name: "result2" }, { name: "result3" }],
-      results: [] as { name: string }[],
-      savedResults: [] as string[]
+      results: [] as Item[],
+      savedResults: [] as SavedResult[]
     };
   },
   methods: {
     validate() {
       if (this.searchInput.length) {
         this.errorMessage = "";
-        const filteredResults = this.items.filter((item) =>
+        const filteredResults = this.store.state.items.filter((item) =>
           item.name.includes(this.searchInput)
         );
         this.results = filteredResults;
@@ -96,14 +95,19 @@ export default defineComponent({
         this.errorMessage = "Please enter search term";
       }
     },
-    save(result: { onChange: boolean; name: string }) {
+    save(result: SavedResult) {
       result.onChange = !result.onChange;
-      if (result.onChange && !this.savedResults.includes(result.name)) {
-        this.savedResults.push(result.name);
+      const matchingResults = this.savedResults.filter((savedResult) => {
+        return savedResult.id === result.id;
+      });
+
+      if (result.onChange && matchingResults.length === 0) {
+        this.savedResults.push(result);
       }
-      if (!result.onChange && this.savedResults.includes(result.name)) {
+
+      if (!result.onChange && matchingResults.length > 0) {
         this.savedResults = this.savedResults.filter((savedResult) => {
-          return savedResult != result.name;
+          return savedResult.id != result.id;
         });
       }
     }

@@ -28,6 +28,15 @@
         </ion-item>
       </ion-list>
     </div>
+    <div class="ion-padding">
+      <p>Store Check</p>
+      <ion-list>
+        <ion-card v-for="item in store.state.items" :key="item.id">
+          <ion-card-header>{{ item.name }}</ion-card-header>
+          <ion-card-content> {{ item.description }}</ion-card-content>
+        </ion-card>
+      </ion-list>
+    </div>
   </div>
 </template>
 
@@ -43,6 +52,7 @@ import {
 } from "@ionic/vue";
 import { search, starOutline, star } from "ionicons/icons";
 import { defineComponent, ref } from "vue";
+import { useStore } from "../store";
 
 export default defineComponent({
   name: "SearchContainer",
@@ -56,11 +66,13 @@ export default defineComponent({
     IonIcon
   },
   setup() {
+    const store = useStore();
     return {
       search,
       starOutline,
       star,
-      onChange: ref(false)
+      onChange: ref(false),
+      store
     };
   },
   data() {

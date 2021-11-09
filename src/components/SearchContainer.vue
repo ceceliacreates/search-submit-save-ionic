@@ -78,7 +78,6 @@ export default defineComponent({
     return {
       searchInput: "",
       errorMessage: "",
-      items: [{ name: "result1" }, { name: "result2" }, { name: "result3" }],
       results: [] as Item[],
       savedResults: [] as SavedResult[]
     };

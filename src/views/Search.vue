@@ -5,7 +5,7 @@
         <ion-title>Search</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true">
+    <ion-content fullscreen>
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">Search</ion-title>

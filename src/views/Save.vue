@@ -12,7 +12,7 @@
         </ion-toolbar>
       </ion-header>
 
-      <ExploreContainer name="Save page" />
+      <SaveContainer name="Save page" />
     </ion-content>
   </ion-page>
 </template>
@@ -25,12 +25,12 @@ import {
   IonTitle,
   IonContent
 } from "@ionic/vue";
-import ExploreContainer from "@/components/ExploreContainer.vue";
+import SaveContainer from "@/components/SaveContainer.vue";
 
 export default {
   name: "Save",
   components: {
-    ExploreContainer,
+    SaveContainer,
     IonHeader,
     IonToolbar,
     IonTitle,

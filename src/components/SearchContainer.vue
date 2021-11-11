@@ -20,20 +20,6 @@
         </ion-button>
       </ion-item>
     </ion-list>
-    <div class="ion-padding">
-      <p v-if="this.store.state.savedResults.length > 0">Saved Results</p>
-      <ion-list>
-        <ion-card
-          v-for="savedResult in this.store.state.savedResults"
-          :key="savedResult.id"
-        >
-          <ion-card-header>{{ savedResult.name }}</ion-card-header>
-          <ion-card-content v-if="savedResult.description">
-            {{ savedResult.description }}</ion-card-content
-          >
-        </ion-card>
-      </ion-list>
-    </div>
   </div>
 </template>
 
@@ -45,10 +31,7 @@ import {
   IonLabel,
   IonList,
   IonText,
-  IonIcon,
-  IonCard,
-  IonCardHeader,
-  IonCardContent
+  IonIcon
 } from "@ionic/vue";
 import { search, starOutline, star } from "ionicons/icons";
 import { defineComponent, ref } from "vue";
@@ -71,10 +54,7 @@ export default defineComponent({
     IonText,
     IonLabel,
     IonButton,
-    IonIcon,
-    IonCard,
-    IonCardHeader,
-    IonCardContent
+    IonIcon
   },
   setup() {
     const store = useStore();

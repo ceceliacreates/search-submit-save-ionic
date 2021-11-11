@@ -1,4 +1,3 @@
-// https://docs.cypress.io/api/introduction/api.html
 describe("Search results", () => {
   beforeEach("it resets viewport and visits the Search tab", () => {
     cy.viewport("iphone-x");

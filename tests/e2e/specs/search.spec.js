@@ -4,38 +4,28 @@ describe("Search results", () => {
     cy.viewport("iphone-x");
     cy.visit("/tabs/search");
   });
-  it.only("returns matching result when found", () => {
-    cy.getBySel("search-input")
-      .find("input")
-      .clear();
-    cy.getBySel("search-input")
-      .find("input")
-      .type("Engineer");
-    cy.getBySel("search-button").click();
-    cy.getBySel("result-label").should("contain.text", "Engineer");
-    cy.getBySel("result-list")
+  it("returns matching result when found", () => {
+    cy.get(".native-input").clear();
+    cy.get(".native-input").type("Engineer");
+    cy.get(".button").click();
+    cy.get("ion-label").should("contain.text", "Engineer");
+    cy.get(".list-md")
       .children()
       .should("have.length.gt", 1);
   });
   it("returns error when no term entered", () => {
-    cy.getBySel("search-input")
-      .find("input")
-      .clear();
-    cy.getBySel("search-button").click();
+    cy.get(".native-input").clear();
+    cy.get(".button").click();
     cy.contains("Please enter search term");
-    cy.getBySel("result-list")
+    cy.get(".list-md")
       .children()
       .should("have.length", 0);
   });
   it("returns no results when no matches found", () => {
-    cy.getBySel("search-input")
-      .find("input")
-      .clear();
-    cy.getBySel("search-input")
-      .find("input")
-      .type("invalid search term");
-    cy.getBySel("search-button").click();
-    cy.getBySel("result-list")
+    cy.get(".native-input").clear();
+    cy.get(".native-input").type("invalid search term");
+    cy.get(".button").click();
+    cy.get(".list-md")
       .children()
       .should("have.length", 0);
   });

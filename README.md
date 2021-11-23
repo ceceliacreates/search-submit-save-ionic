@@ -5,3 +5,5 @@
 ### Tested with Cypress
 
 Work in progress!
+
+![demo gif](https://github.com/ceceliacreates/search-submit-save-ionic/blob/main/assets/ionic-search-save-demo-112321.gif)
